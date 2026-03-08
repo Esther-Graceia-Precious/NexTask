@@ -6,31 +6,39 @@ const bcrypt = require("bcrypt");
 const User = require("../models/Users");
 
 async function createAdmin() {
-  console.log("Connecting to:", process.env.MONGO_URI ? "URI found ✅" : "URI missing ❌");
-  
+  console.log("Connecting to MongoDB...");
+  console.log("URI found:", process.env.MONGO_URI ? "✅" : "❌");
+
   await mongoose.connect(process.env.MONGO_URI);
-  
-  const existing = await User.findOne({ email: "john@gmail.com" });
+  console.log("Connected ");
+
+  const name = process.env.ADMIN_NAME || "John Doe";
+  const email = process.env.ADMIN_EMAIL || "admin@example.com";
+  const password = process.env.ADMIN_PASSWORD || "changeme123";
+
+  const existing = await User.findOne({ email });
   if (existing) {
-    console.log("Admin already exists — updating role to ADMIN");
+    console.log("User already exists — updating role to ADMIN");
     existing.role = "ADMIN";
     await existing.save();
-    console.log("✅ Role updated to ADMIN");
+    console.log("Role updated to ADMIN for:", email);
     process.exit(0);
   }
 
-  const hashedPassword = await bcrypt.hash("123456", 10);
-  
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   await User.create({
-    name: "John Doe",
-    email: "john@gmail.com",
+    name,
+    email,
     password: hashedPassword,
     role: "ADMIN"
   });
 
-  console.log("✅ Admin user created successfully");
-  console.log("Email: john@gmail.com");
-  console.log("Password: 123456");
+  console.log("Admin user created successfully");
+  console.log("Name:", name);
+  console.log("Email:", email);
+  console.log("Role: ADMIN");
+
   process.exit(0);
 }
 
