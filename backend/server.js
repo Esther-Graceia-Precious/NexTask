@@ -25,8 +25,14 @@ app.set("users", users);
 app.set("io", io);
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173",
-  credentials: true
+  origin: [
+    "http://localhost:5173",
+    "https://nextask-q6ib.onrender.com",
+    process.env.FRONTEND_URL
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 app.use("/auth", authRoutes);
