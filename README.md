@@ -4,6 +4,10 @@ A production-ready, full-stack real-time collaborative task management system bu
 
 ---
 
+## 🌐 Live Demo
+- **App:** https://nextask-q6ib.onrender.com
+- **API:** https://nextask-api-93s7.onrender.com
+
 ##  Features
 
 ### Real-Time Collaboration
