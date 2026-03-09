@@ -45,6 +45,28 @@ A production-ready, full-stack real-time collaborative task management system bu
 - Auto mark as read on open
 - Time ago timestamps
 
+
+## DevOps & Deployment
+
+### CI/CD Pipeline
+- Dockerized backend and frontend with multi-stage builds
+- Automated CI/CD pipeline via **GitHub Actions**
+- On every push to `main`:
+  1. Builds Docker images for backend and frontend
+  2. Pushes images to **Docker Hub**
+  3. Triggers automatic redeploy on **Render**
+
+### Docker
+- Backend runs on `node:18-alpine`
+- Frontend built with Vite and served via **Nginx**
+- `docker-compose.yml` for local development
+
+### Hosting
+- **Backend** → Render Web Service
+- **Frontend** → Render Static Site
+- **Database** → MongoDB Atlas
+- **Images** → Docker Hub (`esthergraceiapreciousa/nextask-backend`, `esthergraceiapreciousa/nextask-frontend`)
+
 ---
 
 ##  Tech Stack
